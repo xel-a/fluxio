@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile.prod.yaml
+
+    restart: unless-stopped
+
+    environment:
+      GO_ENV: production
+
+  grafana:
+    restart: unless-stopped
+
+  database:
+    restart: unless-stopped

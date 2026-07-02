@@ -1,0 +1,12 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile.dev.yaml
+
+    volumes:
+      - ./backend:/app
+
+    command: air
+
+    environment:
+      GO_ENV: development

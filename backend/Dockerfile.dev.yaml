@@ -1,0 +1,20 @@
+FROM golang:1.26-alpine
+
+WORKDIR /app
+
+# Install git (needed by some Go modules)
+RUN apk add --no-cache git
+
+# Install Air
+RUN go install github.com/air-verse/air@latest
+
+# Copy Go module files first
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the rest of the project
+COPY . .
+
+EXPOSE 8080
+
+CMD ["air", "-c", ".air.toml"]

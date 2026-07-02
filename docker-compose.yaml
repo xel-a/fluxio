@@ -1,0 +1,62 @@
+name: ${PROJECT_NAME}
+
+services:
+  database:
+    pull_policy: always
+    image: postgres:18-alpine
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    env_file: .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 0s
+
+  grafana:
+    pull_policy: always
+    image: grafana/grafana:latest
+    container_name: ${GRAFANA_CONTAINER_NAME}
+    env_file: .env
+    volumes:
+      - ./datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - grafana_data:/var/lib/grafana
+    ports:
+      - ${GRAFANA_PORT}:3000
+    depends_on:
+      database:
+        condition: service_healthy
+
+  renderer:
+    pull_policy: always
+    image: grafana/grafana-image-renderer:latest
+    container_name: ${GRAFANA_RENDERER_CONTAINER_NAME}
+    env_file: .env
+    ports:
+      - ${GRAFANA_RENDERER_PORT}:8081
+
+  api:
+    image: budget-flow-api
+    build:
+      context: ./backend
+    restart: unless-stopped
+    container_name: ${API_CONTAINER_NAME}
+    env_file: .env
+    ports:
+      - ${API_PORT}:8080
+    depends_on:
+      database:
+        condition: service_healthy
+
+
+  # frontend:
+  #   build: ./frontend
+
+volumes:
+  postgres_data:
+  grafana_data:
