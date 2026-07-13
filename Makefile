@@ -15,6 +15,9 @@ help:
 	@echo "  make prod-build"
 	@echo "  make prod-up"
 	@echo "  make prod-down"
+	@echo ""
+	@echo "Logging:"
+	@echo " make api-log"
 
 dev-build:
 	docker compose -f ${DEV} up --build -d
@@ -45,3 +48,6 @@ prod-up:
 
 prod-down:
 	docker compose -f $(PROD) down
+
+api-log:
+	docker logs --follow api_ctr
