@@ -11,6 +11,7 @@ func NewRouter(h *app.Handlers) http.Handler {
 
 	r.Get("/health", h.Health.PingDatabase)
 	r.Route("/income-transactions", func(r chi.Router) {
+		r.Post("/", h.IncomeTransaction.Create)
 		r.Get("/", h.IncomeTransaction.GetAll)
 	})
 

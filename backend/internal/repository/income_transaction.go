@@ -2,7 +2,10 @@ package repository
 
 import (
 	"context"
+	"fluxio/internal/dto"
 	"fluxio/internal/models"
+	"fluxio/internal/sql/income_transaction"
+
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -15,12 +18,7 @@ func NewIncomeTransactionRepository(db *pgxpool.Pool) *IncomeTransactionReposito
 }
 
 func (r *IncomeTransactionRepository) GetAll(ctx context.Context) ([]models.IncomeTransaction, error) {
-	const query = `
-		SELECT id, date, description, source, amount
-		FROM income_transaction
-		ORDER BY date DESC, id DESC 
-	`
-	rows, err := r.db.Query(ctx, query)
+		rows, err := r.db.Query(ctx, income_transaction.GetAll)
 
 	if err != nil {
 		return nil, err
@@ -53,4 +51,19 @@ func (r *IncomeTransactionRepository) GetAll(ctx context.Context) ([]models.Inco
 	}
 
 	return incomes, nil
+}
+
+func (r *IncomeTransactionRepository) Create(ctx context.Context, req dto.CreateIncomeTransactionRequest) (int, error) {
+	var id int
+
+	err := r.db.QueryRow(
+		ctx,
+		income_transaction.Create,
+		req.Date,
+		req.Description,
+		req.Source,
+		req.Amount,
+	).Scan(&id)
+
+	return id, err
 }
