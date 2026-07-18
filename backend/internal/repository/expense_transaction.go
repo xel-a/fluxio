@@ -2,8 +2,10 @@ package repository
 
 import (
 	"context"
+	"fluxio/internal/dto"
 	"fluxio/internal/models"
 	"fluxio/internal/sql/expense_transaction"
+
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -51,4 +53,21 @@ func (r *ExpenseTransactionRepository) GetAll(ctx context.Context) ([]models.Exp
 	}
 
 	return expenses, nil
+}
+
+func (r *ExpenseTransactionRepository) Create(ctx context.Context, req dto.CreateExpenseTransactionRequest) (int, error) {
+	var id int
+
+	err := r.db.QueryRow(
+		ctx,
+		expense_transaction.Create,
+		req.Date,
+		req.Amount,
+		req.ExpenseCategoryId,
+		req.TransactionTypeId,
+		req.Description,
+		req.CategoryGroupId,
+	).Scan(&id)
+
+	return id, err
 }

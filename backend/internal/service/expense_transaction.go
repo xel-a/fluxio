@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fluxio/internal/dto"
 	"fluxio/internal/models"
 	"fluxio/internal/repository"
 )
@@ -16,4 +17,8 @@ func NewExpenseTransactionService(repo *repository.ExpenseTransactionRepository)
 
 func (s *ExpenseTransactionService) GetAll(ctx context.Context) ([]models.ExpenseTransaction, error) {
 	return s.repo.GetAll(ctx)
+}
+
+func (s *ExpenseTransactionService) Create(ctx context.Context, req dto.CreateExpenseTransactionRequest) (int, error) {
+	return s.repo.Create(ctx, req)
 }

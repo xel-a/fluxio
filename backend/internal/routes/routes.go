@@ -15,6 +15,7 @@ func NewRouter(h *app.Handlers) http.Handler {
 		r.Get("/", h.IncomeTransaction.GetAll)
 	})
 	r.Route("/expense-transactions", func(r chi.Router) {
+		r.Post("/", h.ExpenseTransaction.Create)
 		r.Get("/", h.ExpenseTransaction.GetAll)
 	})
 
