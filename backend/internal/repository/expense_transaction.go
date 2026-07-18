@@ -14,7 +14,7 @@ type ExpenseTransactionRepository struct {
 }
 
 func NewExpenseTransactionRepository(db *pgxpool.Pool) *ExpenseTransactionRepository {
-	return &ExpenseTransactionRepository {db: db}
+	return &ExpenseTransactionRepository{db: db}
 }
 
 func (r *ExpenseTransactionRepository) GetAll(ctx context.Context) ([]models.ExpenseTransaction, error) {

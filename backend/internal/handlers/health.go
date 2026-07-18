@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"net/http"
 	"time"
-	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type HealthHandler struct {
@@ -12,7 +12,7 @@ type HealthHandler struct {
 }
 
 func NewHealthHandler(db *pgxpool.Pool) *HealthHandler {
-	return &HealthHandler { db: db}
+	return &HealthHandler{db: db}
 }
 
 func (h *HealthHandler) PingDatabase(w http.ResponseWriter, r *http.Request) {
@@ -30,9 +30,9 @@ func (h *HealthHandler) PingDatabase(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := HealthResponse{
-			Status:    "ok",
-			Version:   "v1",
-			Timestamp: time.Now().UTC().Format(time.RFC3339),
+		Status:    "ok",
+		Version:   "v1",
+		Timestamp: time.Now().UTC().Format(time.RFC3339),
 	}
 
 	w.Header().Set("Content-Type", "application/json")

@@ -6,9 +6,9 @@ import (
 )
 
 type IncomeTransaction struct {
-	ID int `json:"id"`
-	Date pgtype.Date `json:"date"`
-	Description string `json:"description"`
-	Source string `json:"source"`
-	Amount decimal.Decimal `json:"amount"`
+	ID          int             `json:"id"`
+	Date        pgtype.Date     `json:"date"`
+	Description string          `json:"description"`
+	Source      string          `json:"source"`
+	Amount      decimal.Decimal `json:"amount"`
 }

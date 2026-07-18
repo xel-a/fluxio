@@ -12,7 +12,7 @@ type IncomeTransactionService struct {
 }
 
 func NewIncomeTransactionService(repo *repository.IncomeTransactionRepository) *IncomeTransactionService {
-	return &IncomeTransactionService {repo: repo}
+	return &IncomeTransactionService{repo: repo}
 }
 
 func (s *IncomeTransactionService) GetAll(ctx context.Context) ([]models.IncomeTransaction, error) {

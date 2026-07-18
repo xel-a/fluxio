@@ -2,8 +2,8 @@ package routes
 
 import (
 	"fluxio/internal/app"
-	"net/http"
 	"github.com/go-chi/chi/v5"
+	"net/http"
 )
 
 func NewRouter(h *app.Handlers) http.Handler {

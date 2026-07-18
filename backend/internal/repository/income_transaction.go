@@ -18,12 +18,12 @@ func NewIncomeTransactionRepository(db *pgxpool.Pool) *IncomeTransactionReposito
 }
 
 func (r *IncomeTransactionRepository) GetAll(ctx context.Context) ([]models.IncomeTransaction, error) {
-		rows, err := r.db.Query(ctx, income_transaction.GetAll)
+	rows, err := r.db.Query(ctx, income_transaction.GetAll)
 
 	if err != nil {
 		return nil, err
 	}
-	
+
 	defer rows.Close()
 
 	incomes := make([]models.IncomeTransaction, 0)
@@ -38,7 +38,7 @@ func (r *IncomeTransactionRepository) GetAll(ctx context.Context) ([]models.Inco
 			&income.Source,
 			&income.Amount,
 		)
-		
+
 		if err != nil {
 			return nil, err
 		}

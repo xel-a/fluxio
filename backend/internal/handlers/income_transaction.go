@@ -12,9 +12,8 @@ type IncomeTransactionHandler struct {
 }
 
 func NewIncomeTransactionHandler(service *service.IncomeTransactionService) *IncomeTransactionHandler {
-	return &IncomeTransactionHandler {service: service}
+	return &IncomeTransactionHandler{service: service}
 }
-
 
 func (h *IncomeTransactionHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
@@ -35,18 +34,18 @@ func (h *IncomeTransactionHandler) Create(w http.ResponseWriter, r *http.Request
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-			http.Error(w, "invalid request body", http.StatusBadRequest)
-			return
+		http.Error(w, "invalid request body", http.StatusBadRequest)
+		return
 	}
 
 	id, err := h.service.Create(r.Context(), req)
 	if err != nil {
-			http.Error(w, "failed to create income transaction", http.StatusInternalServerError)
-			return
+		http.Error(w, "failed to create income transaction", http.StatusInternalServerError)
+		return
 	}
 
 	response := map[string]any{
-			"id": id,
+		"id": id,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

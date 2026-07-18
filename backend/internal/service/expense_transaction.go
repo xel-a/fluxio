@@ -12,7 +12,7 @@ type ExpenseTransactionService struct {
 }
 
 func NewExpenseTransactionService(repo *repository.ExpenseTransactionRepository) *ExpenseTransactionService {
-	return &ExpenseTransactionService { repo: repo }
+	return &ExpenseTransactionService{repo: repo}
 }
 
 func (s *ExpenseTransactionService) GetAll(ctx context.Context) ([]models.ExpenseTransaction, error) {

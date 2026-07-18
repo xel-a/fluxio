@@ -8,8 +8,8 @@ import (
 )
 
 type Handlers struct {
-	Health *handlers.HealthHandler
-	IncomeTransaction *handlers.IncomeTransactionHandler
+	Health             *handlers.HealthHandler
+	IncomeTransaction  *handlers.IncomeTransactionHandler
 	ExpenseTransaction *handlers.ExpenseTransactionHandler
 }
 
@@ -22,12 +22,11 @@ func Initialize(db *pgxpool.Pool) *Handlers {
 	expenseTransactionService := service.NewExpenseTransactionService(expenseTransactionRepo)
 	expenseTransactionHandler := handlers.NewExpenseTransactionHandler(expenseTransactionService)
 
-
 	healthHandler := handlers.NewHealthHandler(db)
 
 	return &Handlers{
-		Health: healthHandler,
-		IncomeTransaction: incomeTransactionHandler,
+		Health:             healthHandler,
+		IncomeTransaction:  incomeTransactionHandler,
 		ExpenseTransaction: expenseTransactionHandler,
 	}
 }

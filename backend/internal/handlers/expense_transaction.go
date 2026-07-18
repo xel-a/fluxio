@@ -12,7 +12,7 @@ type ExpenseTransactionHandler struct {
 }
 
 func NewExpenseTransactionHandler(service *service.ExpenseTransactionService) *ExpenseTransactionHandler {
-	return &ExpenseTransactionHandler { service: service }
+	return &ExpenseTransactionHandler{service: service}
 }
 
 func (h *ExpenseTransactionHandler) GetAll(w http.ResponseWriter, r *http.Request) {
@@ -47,7 +47,7 @@ func (h *ExpenseTransactionHandler) Create(w http.ResponseWriter, r *http.Reques
 	}
 
 	response := map[string]any{
-		"id":id,
+		"id": id,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

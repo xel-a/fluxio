@@ -6,8 +6,8 @@ import (
 )
 
 type CreateIncomeTransactionRequest struct {
-	Date        pgtype.Date `json:"date"`
-	Description string    `json:"description"`
-	Source      string    `json:"source"`
-	Amount      decimal.Decimal   `json:"amount"`
+	Date        pgtype.Date     `json:"date"`
+	Description string          `json:"description"`
+	Source      string          `json:"source"`
+	Amount      decimal.Decimal `json:"amount"`
 }

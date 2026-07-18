@@ -6,12 +6,12 @@ import (
 
 type Config struct {
 	DatabaseURL string
-	Port string
+	Port        string
 }
 
 func Load() Config {
-	return Config {
+	return Config{
 		DatabaseURL: os.Getenv("DATABASE_URL"),
-		Port: os.Getenv("API_PORT"),
+		Port:        os.Getenv("API_PORT"),
 	}
 }

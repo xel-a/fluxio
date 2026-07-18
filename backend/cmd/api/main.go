@@ -20,10 +20,10 @@ func main() {
 
 	handlers := app.Initialize(db)
 	router := routes.NewRouter(handlers)
-	
+
 	log.Println("Server listening on Port: ", cfg.Port)
 
-	if err := http.ListenAndServe(":" + cfg.Port, router); err != nil {
+	if err := http.ListenAndServe(":"+cfg.Port, router); err != nil {
 		log.Fatal(err)
 	}
 }
