@@ -17,7 +17,10 @@ help:
 	@echo "  make prod-down"
 	@echo ""
 	@echo "Logging:"
-	@echo " make api-log"
+	@echo "  make api-log"
+	@echo ""
+	@echo "Formatting"
+	@echo "  make api-format"
 
 dev-build:
 	docker compose -f ${DEV} up --build -d
@@ -51,3 +54,6 @@ prod-down:
 
 api-log:
 	docker logs --follow api_ctr
+
+api-format:
+	(cd backend && go fmt ./...)
